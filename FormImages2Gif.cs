@@ -154,7 +154,7 @@ namespace Images2Gif
                 string[] someTypeFiles = Directory.GetFileSystemEntries(arg.sourceImagesDirectory,
                     string.Format("*.{0}", item));
                 files.AddRange(someTypeFiles);
-                this.worker.ReportProgress(-1);
+                this.worker.ReportProgress(this.prgBar.Minimum - 1);
             }
 
             AnimatedGifEncoder gifEncoder = new AnimatedGifEncoder();
@@ -179,14 +179,13 @@ namespace Images2Gif
             public int count;
             public UserState(int count)
             {
-                // TODO: Complete member initialization
                 this.count = count;
             }
         }
 
         private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == -1)
+            if (e.ProgressPercentage == this.prgBar.Minimum - 1)
             {
                 if (this.prgBar.Value == this.prgBar.Maximum)
                 {
